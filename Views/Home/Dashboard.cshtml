@@ -1,0 +1,78 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@model Wedding[]
+
+<div class="row">
+    <div class="col-8">
+        <h1>Welcome to the Wedding Planner</h1>
+		<a class="form-group text-right" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Wedding</th>
+                    <th>Date</th>
+                    <th>Guests</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Wedding wedding in Model)
+                {
+                    string url = $"/wedding/{wedding.WeddingId}";
+                    string rsvp = $"/wedding/{wedding.WeddingId}/rsvp";
+                    string unrsvp = $"/wedding/{wedding.WeddingId}/unrsvp";
+                    string delete = $"wedding/{wedding.WeddingId}/delete";
+                    Boolean UserAttending = false;
+                    foreach (var guest in wedding.Guests)
+                    {
+                        if (guest.User.UserId == ViewBag.UserId)
+                        {
+                            UserAttending = true;
+                            break;
+                        }
+                    }
+                    <tr>
+                        <td><a href=@url>@wedding.WedderOne & @wedding.WedderTwo</a></td>
+                        <td>@wedding.Date.ToString("MMM dd, yyyy") at @wedding.Date.ToString("hh:mm tt")</td>
+                        <td>@wedding.Guests.Count</td>
+                        <td>
+                            @if (!UserAttending)
+                            {
+                                <form action=@rsvp method="post" class="actions">
+                                    <button class="btn btn-link">RSVP</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <form action=@unrsvp method="post" class="actions">
+                                    <button class="btn btn-link">un-RSVP</button>
+                                </form>
+                            }
+                            @if (wedding.UserId == ViewBag.UserId)
+                            {
+                                <form action=@delete method="post" class="actions">
+                                    <button class="btn btn-link">Delete</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1 text-right">
+        <a asp-action="CreateWeddingForm" class="btn btn-primary">New Wedding</a>
+    </div>
+</div>
+

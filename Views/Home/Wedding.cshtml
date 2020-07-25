@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Read/Update/Delete a Wedding";
+}
+
+@model Wedding
+
+<div class="row">
+    <div class="col-10 text-left">
+        <h1>@Model.WedderOne and @Model.WedderTwo's Wedding </h1>
+		<a class="form-group text-right" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+		|
+		<a class="form-group text-right" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10 offset-1">
+        <h3>Date: @Model.Date.ToString("MMM dd, yyyy") at @Model.Date.ToString("hh:mm tt")</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10 offset-1">
+        <h3>Guests: </h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-10 offset-1">
+        @foreach (var guest in Model.Guests)
+        {
+            <p>@guest.User.FirstName @guest.User.LastName</p>
+        }
+    </div>
+</div>

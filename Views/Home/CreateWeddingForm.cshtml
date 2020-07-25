@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Create a Wedding";
+}
+
+@model Wedding
+
+<div class="row">
+    <div class="col-12 text-center">
+        <h1>Create a Wedding</h1>
+		<a class="form-group text-right" asp-area="" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+		|
+		<a class="form-group text-right" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-10 offset-md-1">
+        <form asp-action="CreateWedding" asp-controller="Home" method="post">
+
+            <div class="form-group">
+                <label asp-for="WedderOne"></label>&nbsp<span asp-validation-for="WedderOne" class="error-message"></span>
+                <input asp-for="WedderOne" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="WedderTwo"></label>&nbsp<span asp-validation-for="WedderTwo" class="error-message"></span>
+                <input asp-for="WedderTwo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Date"></label>&nbsp<span asp-validation-for="Date" class="error-message"></span>
+                <input asp-for="Date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Address"></label>&nbsp<span asp-validation-for="Address" class="error-message"></span>
+                <input asp-for="Address" class="form-control" />
+            </div>
+
+            <div class="form-group text-right">
+                <button class="btn btn-primary">Add a Wedding</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
